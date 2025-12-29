@@ -3,39 +3,29 @@ using UnityEngine;
 
 namespace Player
 {
-    public class PlayerMoveState : StateBase
+    public class SprintState : StateBase
     {
         private PlayerController player;
 
-        public PlayerMoveState(PlayerController player)
+        public SprintState(PlayerController player)
         {
             this.player = player;
         }
-        
+
         public override void OnStateEnter()
         {
+            
+            player.currentSpeed = player.sprintSpeed;
             player.anim.SetBool("Run", true);
+            player.anim.speed = 1.5f;
         }
-
-        public override void OnStateExit()
-        {
-            player.anim.SetBool("Run", false);
-        }
-
 
         public override void OnStateStay()
         {
-            
             float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");
-            
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                player.stateMachine.SwitchState(PlayerStates.SPRINT);
-                return;
-            }
+            float v = Input.GetAxisRaw("Vertical");  
 
-           
+            
             if (Mathf.Abs(h) > 0.1f)
             {
                 player.transform.Rotate(Vector3.up, h * player.rotationSpeed * Time.deltaTime);
@@ -61,8 +51,17 @@ namespace Player
             player.rb.linearVelocity = vel;
 
             
-            if (Mathf.Abs(v) < 0.1f && Mathf.Abs(h) < 0.1f)
+            if (!Input.GetKey(KeyCode.LeftShift))
             {
+                player.currentSpeed = player.walkSpeed;
+                player.stateMachine.SwitchState(PlayerStates.MOVE);
+                return;
+            }
+
+            
+            if (Mathf.Abs(v) < 0.1f)
+            {
+                player.currentSpeed = player.walkSpeed;
                 player.stateMachine.SwitchState(PlayerStates.IDLE);
                 return;
             }
@@ -70,8 +69,16 @@ namespace Player
             
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                player.currentSpeed = player.walkSpeed;
                 player.stateMachine.SwitchState(PlayerStates.JUMP);
             }
+        }
+
+        public override void OnStateExit()
+        {
+            
+            player.currentSpeed = player.walkSpeed;
+            player.anim.speed = 1f;
         }
     }
 }

@@ -11,11 +11,17 @@ namespace Player
         {
             this.player = player;
         }
+        
+        public override void OnStateEnter()
+        {
+            player.anim.SetBool("Run", false);
+        }
+
 
         public override void OnStateStay()
         {
-            float h = Input.GetAxisRaw("Horizontal"); // A / D
-            float v = Input.GetAxisRaw("Vertical");   // W / S
+            float h = Input.GetAxisRaw("Horizontal"); 
+            float v = Input.GetAxisRaw("Vertical");  
 
             if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)
             {

@@ -16,6 +16,8 @@ namespace Player
         public override void OnStateEnter()
         {
             jumped = false;
+            player.transform.localScale = new Vector3(1.1f, 0.8f, 1.1f);
+
         }
 
         public override void OnStateStay()
@@ -27,11 +29,14 @@ namespace Player
                 player.rb.linearVelocity = vel;
 
                 jumped = true;
+                player.transform.localScale = new Vector3(0.9f, 1.2f, 0.9f);
+
             }
 
-            // Quando começar a cair → Idle
+            
             if (player.rb.linearVelocity.y <= 0)
             {
+                player.transform.localScale = Vector3.one;
                 player.stateMachine.SwitchState(PlayerStates.IDLE);
             }
         }

@@ -8682,7 +8682,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8517130397b6947439cc523dd842f6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  speed: 20
+  walkSpeed: 5
+  sprintSpeed: 30
+  currentSpeed: 15
   jumpForce: 7
   rotationSpeed: 180
   rb: {fileID: 1755247084}
