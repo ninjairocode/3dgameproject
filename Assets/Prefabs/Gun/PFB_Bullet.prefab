@@ -156,6 +156,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3d4f4f7333185546867fef42be7a867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HeroGun.ProjectileBase
-  timeToDestroy: 1
+  timeToDestroy: 2
   damageAmount: 1
   speed: 50

@@ -158,7 +158,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HeroGun.GunShootLimit
   prefabProjectile: {fileID: 7252466720939313663, guid: 86029f0c075c0d04a9229e20b20ca2c8, type: 3}
   positionToShoot: {fileID: 5046073905728958362}
-  timeBetweenShoot: 0.3
+  timeBetweenShoot: 0.2
   speed: 50
+  uiGunUpdaters: []
   maxShoot: 5
   timeToRecharge: 1
