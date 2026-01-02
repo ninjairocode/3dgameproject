@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3005600272625571327}
   - component: {fileID: 1669356498198355888}
   - component: {fileID: 8032595294835603233}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1676323958586296788}
   - component: {fileID: 7252466720939313663}
-  m_Layer: 0
+  - component: {fileID: 4910484289600760317}
+  m_Layer: 6
   m_Name: PFB_Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,3 +160,30 @@ MonoBehaviour:
   timeToDestroy: 2
   damageAmount: 1
   speed: 50
+--- !u!54 &4910484289600760317
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7771519063544378521}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0

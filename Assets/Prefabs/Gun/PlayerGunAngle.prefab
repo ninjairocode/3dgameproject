@@ -129,7 +129,8 @@ MonoBehaviour:
   positionToShoot: {fileID: 4847746061162356598}
   timeBetweenShoot: 0.3
   speed: 50
-  maxShoot: 5
+  uiGunUpdaters: []
+  maxShoot: 30
   timeToRecharge: 1
   amountPerShoot: 10
   angle: 15
@@ -158,7 +159,7 @@ Transform:
   m_GameObject: {fileID: 1453788924278266668}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.231, z: 0.956}
+  m_LocalPosition: {x: 0, y: 0.231, z: 1.472}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

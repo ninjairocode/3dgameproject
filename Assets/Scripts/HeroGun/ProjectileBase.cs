@@ -1,3 +1,4 @@
+using Interfaces;
 using UnityEngine;
 
 namespace HeroGun
@@ -24,7 +25,11 @@ namespace HeroGun
 
         private void OnCollisionEnter(Collision collision)
         {
+            var damageable = collision.transform.GetComponent<IDamageable>();
             
+            if(damageable != null) damageable.Damage(damageAmount);
+            
+            Destroy(gameObject);
         }
     
     }
