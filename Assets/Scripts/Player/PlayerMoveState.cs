@@ -11,37 +11,41 @@ namespace Player
         {
             this.player = player;
         }
-        
+
         public override void OnStateEnter()
         {
-            player.anim.SetBool("Run", true);
+            if (player.anim != null)
+                player.anim.SetBool("Run", true);
         }
 
         public override void OnStateExit()
         {
-            player.anim.SetBool("Run", false);
+            if (player.anim != null)
+                player.anim.SetBool("Run", false);
         }
-
 
         public override void OnStateStay()
         {
             
+
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
-            
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 player.stateMachine.SwitchState(PlayerStates.SPRINT);
                 return;
             }
 
-           
             if (Mathf.Abs(h) > 0.1f)
             {
                 player.transform.Rotate(Vector3.up, h * player.rotationSpeed * Time.deltaTime);
             }
 
-            
+            // Proteção caso rb seja nulo
+            if (player.rb == null) return;
+
+            // Mantém a componente Y da velocidade (gravidade / knockback)
             Vector3 vel = player.rb.linearVelocity;
 
             if (Mathf.Abs(v) > 0.1f)
@@ -60,14 +64,12 @@ namespace Player
 
             player.rb.linearVelocity = vel;
 
-            
             if (Mathf.Abs(v) < 0.1f && Mathf.Abs(h) < 0.1f)
             {
                 player.stateMachine.SwitchState(PlayerStates.IDLE);
                 return;
             }
 
-            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 player.stateMachine.SwitchState(PlayerStates.JUMP);

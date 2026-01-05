@@ -14,24 +14,28 @@ namespace Player
 
         public override void OnStateEnter()
         {
-            
             player.currentSpeed = player.sprintSpeed;
-            player.anim.SetBool("Run", true);
-            player.anim.speed = 1.5f;
+            if (player.anim != null)
+            {
+                player.anim.SetBool("Run", true);
+                player.anim.speed = 1.5f;
+            }
         }
 
         public override void OnStateStay()
         {
-            float h = Input.GetAxisRaw("Horizontal");
-            float v = Input.GetAxisRaw("Vertical");  
-
             
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+
             if (Mathf.Abs(h) > 0.1f)
             {
                 player.transform.Rotate(Vector3.up, h * player.rotationSpeed * Time.deltaTime);
             }
 
-            
+            if (player.rb == null) return;
+
+            // Mantém a componente Y da velocidade (gravidade / knockback)
             Vector3 vel = player.rb.linearVelocity;
 
             if (Mathf.Abs(v) > 0.1f)
@@ -50,7 +54,7 @@ namespace Player
 
             player.rb.linearVelocity = vel;
 
-            
+            // Transições
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 player.currentSpeed = player.walkSpeed;
@@ -58,7 +62,6 @@ namespace Player
                 return;
             }
 
-            
             if (Mathf.Abs(v) < 0.1f)
             {
                 player.currentSpeed = player.walkSpeed;
@@ -66,7 +69,6 @@ namespace Player
                 return;
             }
 
-            
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 player.currentSpeed = player.walkSpeed;
@@ -76,9 +78,9 @@ namespace Player
 
         public override void OnStateExit()
         {
-            
             player.currentSpeed = player.walkSpeed;
-            player.anim.speed = 1f;
+            if (player.anim != null)
+                player.anim.speed = 1f;
         }
     }
 }

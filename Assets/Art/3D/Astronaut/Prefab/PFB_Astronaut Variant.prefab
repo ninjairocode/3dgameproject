@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7786094415912853431}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.003, y: 1, z: -0.16315079}
+  m_LocalPosition: {x: -0.003, y: 1, z: 1.49}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -178,7 +178,7 @@ PrefabInstance:
     - target: {fileID: -2919398434156041236, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 654bef3b2bab6c74abadff7014af75f6, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: -2531397741055781641, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -190,6 +190,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
       propertyPath: m_Name
       value: PFB_Astronaut Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3904918203798849490, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -221,7 +225,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3586030588029490399}
+    - targetCorrespondingSourceObject: {fileID: -5053669610390531191, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 67813620304051087}
+    - targetCorrespondingSourceObject: {fileID: -7791430941734515087, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4409528548949902707}
   m_SourcePrefab: {fileID: 100100000, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+--- !u!137 &1691330199028169570 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -2919398434156041236, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5156129202013452133 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
@@ -273,6 +288,9 @@ MonoBehaviour:
   rotationSpeed: 180
   rb: {fileID: 7572267154788142178}
   anim: {fileID: 7193805671317595757}
+  flashColors:
+  - {fileID: 4409528548949902707}
+  - {fileID: 67813620304051087}
 --- !u!54 &7572267154788142178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -281,7 +299,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5531986718136724959}
   serializedVersion: 5
-  m_Mass: 2
+  m_Mass: 5
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -339,3 +357,50 @@ MonoBehaviour:
   - {fileID: 8726239708713639723, guid: 51a1984f6e623084eae8370250f08f21, type: 3}
   gunPosition: {fileID: 8712534304479938599}
   weaponText: {fileID: 0}
+--- !u!1 &6042633999524273919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7791430941734515087, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4409528548949902707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6042633999524273919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b27bd47f46bf204ba5c233dce1c4ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Utils.FlashColor
+  meshRenderer: {fileID: 0}
+  skinnedMeshRenderer: {fileID: 1691330199028169570}
+  color: {r: 0.8396226, g: 0.2837962, b: 0.19406372, a: 1}
+  duration: 0.2
+--- !u!137 &8517986018976716636 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 3904918203798849490, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8780113881676022535 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5053669610390531191, guid: 8d575dd232d52cb4ea231be2a029a8ce, type: 3}
+  m_PrefabInstance: {fileID: 4613086030138626190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &67813620304051087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780113881676022535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b27bd47f46bf204ba5c233dce1c4ffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Utils.FlashColor
+  meshRenderer: {fileID: 0}
+  skinnedMeshRenderer: {fileID: 8517986018976716636}
+  color: {r: 1, g: 0, b: 0, a: 1}
+  duration: 0.2

@@ -1,36 +1,68 @@
-using System;
 using DG.Tweening;
 using UnityEngine;
 using Animation;
 using Interfaces;
+using Player;
 using Utils;
 
 namespace Enemy
 {
     public class EnemyBase : MonoBehaviour, IDamageable
     {
-        public Collider collider;
+        [Header("Components")]
+        public Collider bodyCollider;
         public FlashColor flashColor;
-        public float startLife = 10f;
         public ParticleSystem particles;
+
+        [Header("Life")]
+        public float startLife = 10f;
+        public float currentLife; 
+        public AnimationBase animationBase;
         
-        [SerializeField] private float _currentLife;
-        [SerializeField] private AnimationBase _animationBase;
-        
+        [Header("Behavior")]
+        public bool lookAtPlayer = false;
+
         [Header("Start Animation")]
         public float startAnimationDuration = .2f;
         public Ease startAnimationEase = Ease.OutBack;
         public bool startWithBornAnimation = true;
 
+        
+        public Rigidbody rb;
+
+
+        public PlayerController playerController;
+
+        private void OnValidate()
+        {
+            
+            if (bodyCollider == null)
+                bodyCollider = GetComponent<Collider>();
+
+            if (animationBase == null)
+                animationBase = GetComponentInChildren<AnimationBase>();
+        }
 
         private void Awake()
         {
+            
+            rb = GetComponent<Rigidbody>();
+            if (animationBase == null)
+                animationBase = GetComponentInChildren<AnimationBase>();
+
             Init();
         }
 
-        protected void ResetLife()
+        private void Start()
         {
-            _currentLife = startLife;
+            
+            if (playerController == null)
+                playerController = GameObject.FindObjectOfType<PlayerController>();
+        }
+
+        public void ResetLife()
+        {
+            currentLife = startLife;
         }
 
         protected virtual void Init()
@@ -38,29 +70,45 @@ namespace Enemy
             ResetLife();
             if (startWithBornAnimation)
             {
-                BornAnimation(); 
+                BornAnimation();
             }
-            
         }
-        
+
         protected virtual void Kill()
         {
             OnKill();
         }
 
+       
         protected virtual void OnKill()
         {
-            if(collider != null) collider.enabled = false;
-            Destroy(gameObject, 3f);
-            PlayAnimationByTrigger(AnimationType.DEATH);
+            if (bodyCollider != null) bodyCollider.enabled = false;
+
+            
+            if (animationBase != null)
+            {
+                PlayAnimationByTrigger(AnimationType.DEATH);
+            }
+            else
+            {
+                
+                Animator a = GetComponentInChildren<Animator>();
+                if (a != null) a.SetTrigger("Death");
+            }
+
+            
         }
 
-        public void OnDamage(float damage)
+        public virtual void OnDamage(float damage)
         {
-            if(flashColor != null) flashColor.Flash();
-            if(particles != null) particles.Play();
-            _currentLife -= damage;
-            if (_currentLife <= 0)
+            
+            if (flashColor != null) flashColor.Flash();
+            if (particles != null) particles.Play();
+
+            
+
+            currentLife -= damage;
+            if (currentLife <= 0f)
             {
                 Kill();
             }
@@ -75,23 +123,49 @@ namespace Enemy
 
         public void PlayAnimationByTrigger(AnimationType animationType)
         {
-            _animationBase.PlayAnimationByTrigger(animationType);
+            if (animationBase == null)
+            {
+                Debug.LogWarning($"[EnemyBase] AnimationBase não atribuído em {name}. Ignorando PlayAnimationByTrigger({animationType}).");
+                return;
+            }
+
+            animationBase.PlayAnimationByTrigger(animationType);
         }
 
         #endregion
 
-        private void Update()
+        public virtual void Damage(float damage)
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            Debug.Log($"Damage {damage} on {name}");
+            OnDamage(damage);
+        }
+
+        public virtual void Damage(float damage, Vector3 dir)
+        {
+            OnDamage(damage);
+
+            
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            PlayerController p = collision.transform.GetComponent<PlayerController>();
+            if (p != null)
             {
-                OnDamage(5f);
+                
+                p.Damage(10);
             }
         }
 
-        public void Damage(float damage)
+        public virtual void Update()
         {
-            Debug.Log($"Damage {damage}");
-            OnDamage(damage);
+            if (lookAtPlayer && playerController != null)
+            {
+                
+                Vector3 target = playerController.transform.position;
+                target.y = transform.position.y;
+                transform.LookAt(target);
+            }
         }
     }
 }

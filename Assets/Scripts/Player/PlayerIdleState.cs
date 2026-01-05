@@ -11,21 +11,24 @@ namespace Player
         {
             this.player = player;
         }
-        
+
         public override void OnStateEnter()
         {
-            player.anim.SetBool("Run", false);
+            if (player.anim != null)
+                player.anim.SetBool("Run", false);
         }
-
 
         public override void OnStateStay()
         {
-            float h = Input.GetAxisRaw("Horizontal"); 
-            float v = Input.GetAxisRaw("Vertical");  
+            
+
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
 
             if (Mathf.Abs(h) > 0.1f || Mathf.Abs(v) > 0.1f)
             {
                 player.stateMachine.SwitchState(PlayerStates.MOVE);
+                return;
             }
 
             if (Input.GetKeyDown(KeyCode.Space))

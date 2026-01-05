@@ -1,9 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
+using Interfaces;
 using States;
 using UnityEngine;
+using Utils;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviour, IDamageable
     {
         public StateMachine<PlayerStates> stateMachine;
 
@@ -18,6 +22,11 @@ namespace Player
         public Rigidbody rb;
         public Animator anim;
 
+        [Header("FLASH")]
+        public List<FlashColor> flashColors;
+
+        
+
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
@@ -26,23 +35,45 @@ namespace Player
             stateMachine = new StateMachine<PlayerStates>();
             stateMachine.Init();
 
-            
             stateMachine.RegisterStates(PlayerStates.IDLE, new PlayerIdleState(this));
             stateMachine.RegisterStates(PlayerStates.MOVE, new PlayerMoveState(this));
             stateMachine.RegisterStates(PlayerStates.JUMP, new PlayerJumpState(this));
             stateMachine.RegisterStates(PlayerStates.SPRINT, new SprintState(this));
 
-            
             stateMachine.SwitchState(PlayerStates.IDLE);
 
-            
             currentSpeed = walkSpeed;
+
+            
+            if (rb == null)
+                rb = GetComponent<Rigidbody>();
+
+            if (rb != null)
+                rb.isKinematic = false;
         }
 
         private void Update()
         {
             stateMachine.Update();
         }
+
+        #region LIFE
+
+        public void Damage(float damage)
+        {
+            flashColors.ForEach(i => i.Flash());
+        }
+
+        public void Damage(float damage, Vector3 dir)
+        {
+            Damage(damage);
+
+            
+        }
+
+        #endregion
+
+        
     }
 
     public enum PlayerStates
