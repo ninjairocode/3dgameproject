@@ -26,8 +26,6 @@ namespace Player
 
         public override void OnStateStay()
         {
-            
-
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 
@@ -42,10 +40,9 @@ namespace Player
                 player.transform.Rotate(Vector3.up, h * player.rotationSpeed * Time.deltaTime);
             }
 
-            // Proteção caso rb seja nulo
             if (player.rb == null) return;
 
-            // Mantém a componente Y da velocidade (gravidade / knockback)
+           
             Vector3 vel = player.rb.linearVelocity;
 
             if (Mathf.Abs(v) > 0.1f)
@@ -73,6 +70,7 @@ namespace Player
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 player.stateMachine.SwitchState(PlayerStates.JUMP);
+                return;
             }
         }
     }

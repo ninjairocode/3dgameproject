@@ -6,6 +6,8 @@ namespace Player
     public class PlayerDeathState : StateBase
     {
         private PlayerController player;
+        private float timer;
+        private float respawnDelay = 1.2f;
 
         public PlayerDeathState(PlayerController player)
         {
@@ -16,9 +18,9 @@ namespace Player
         {
             if (player == null) return;
 
-            
+            timer = 0f;
 
-            // Animação de morte (usar trigger é mais seguro que bool para uma única execução)
+            
             if (player.anim != null)
             {
                 player.anim.SetTrigger("Death");
@@ -26,30 +28,39 @@ namespace Player
                 player.anim.SetBool("isMoving", false);
             }
 
-            // Zera velocidade física de forma segura
+            
             if (player.rb != null)
             {
-                // Se estiver usando linearVelocity (API customizada), mantenha-a; caso contrário, use velocity
-                try
-                {
-                    player.rb.linearVelocity = Vector3.zero;
-                }
-                catch
-                {
-                    player.rb.linearVelocity = Vector3.zero;
-                }
-
-                // Opcional: tornar kinematic para evitar forças posteriores
+                player.rb.linearVelocity = Vector3.zero;
                 player.rb.isKinematic = true;
             }
 
-            // Desativa colisores para evitar interações físicas indesejadas
+            
             Collider col = player.GetComponent<Collider>();
-            if (col != null) col.enabled = false;
+            if (col != null)
+                col.enabled = false;
+        }
 
-            // Opcional: desabilitar o state machine para garantir que nenhum outro estado seja ativado
-            // Se preferir manter a máquina ativa para efeitos, comente a linha abaixo
-            player.stateMachine = null;
+        public override void OnStateStay()
+        {
+            timer += Time.deltaTime;
+
+            if (timer >= respawnDelay)
+            {
+                player.Respawn();
+            }
+        }
+
+        public override void OnStateExit()
+        {
+            
+            Collider col = player.GetComponent<Collider>();
+            if (col != null)
+                col.enabled = true;
+
+            
+            if (player.rb != null)
+                player.rb.isKinematic = false;
         }
     }
 }

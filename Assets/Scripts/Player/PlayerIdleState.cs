@@ -15,13 +15,17 @@ namespace Player
         public override void OnStateEnter()
         {
             if (player.anim != null)
-                player.anim.SetBool("Run", false);
+                player.anim.SetBool("Idle", true);
+        }
+
+        public override void OnStateExit()
+        {
+            if (player.anim != null)
+                player.anim.SetBool("Idle", false);
         }
 
         public override void OnStateStay()
         {
-            
-
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 

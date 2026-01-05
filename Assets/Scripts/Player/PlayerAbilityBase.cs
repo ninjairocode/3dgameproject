@@ -7,19 +7,19 @@ namespace Player
     public class PlayerAbilityBase : MonoBehaviour
     {
         protected PlayerController player;
-        
         protected Inputs inputs;
 
         private void OnValidate()
         {
-            if (player == null) player = GetComponent<PlayerController>();
+            if (player == null)
+                player = GetComponent<PlayerController>();
         }
 
         private void Start()
         {
             inputs = new Inputs();
             inputs.Enable();
-            
+
             Init();
             OnValidate();
             RegisterListeners();
@@ -27,16 +27,14 @@ namespace Player
 
         private void OnEnable()
         {
-            if( inputs != null)
-            {
+            if (inputs != null)
                 inputs.Enable();
-            }
-            
         }
-        
+
         private void OnDisable()
         {
-            inputs.Disable();
+            if (inputs != null)
+                inputs.Disable();
         }
 
         private void OnDestroy()
@@ -44,19 +42,10 @@ namespace Player
             RemoveListeners();
         }
 
-        protected virtual void Init()
-        {
-            
-        }
-        
-        protected virtual void RegisterListeners()
-        {
-            
-        }
+        protected virtual void Init() { }
 
-        protected virtual void RemoveListeners()
-        {
-            
-        }
+        protected virtual void RegisterListeners() { }
+
+        protected virtual void RemoveListeners() { }
     }
 }

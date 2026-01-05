@@ -15,6 +15,7 @@ namespace Player
         public override void OnStateEnter()
         {
             player.currentSpeed = player.sprintSpeed;
+
             if (player.anim != null)
             {
                 player.anim.SetBool("Run", true);
@@ -24,7 +25,6 @@ namespace Player
 
         public override void OnStateStay()
         {
-            
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
 
@@ -35,7 +35,7 @@ namespace Player
 
             if (player.rb == null) return;
 
-            // Mantém a componente Y da velocidade (gravidade / knockback)
+            
             Vector3 vel = player.rb.linearVelocity;
 
             if (Mathf.Abs(v) > 0.1f)
@@ -54,7 +54,7 @@ namespace Player
 
             player.rb.linearVelocity = vel;
 
-            // Transições
+            
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 player.currentSpeed = player.walkSpeed;
@@ -79,6 +79,7 @@ namespace Player
         public override void OnStateExit()
         {
             player.currentSpeed = player.walkSpeed;
+
             if (player.anim != null)
                 player.anim.speed = 1f;
         }
