@@ -76,8 +76,17 @@ namespace Enemy
 
         protected virtual void Kill()
         {
+            Debug.Log($"[EnemyBase:{name}] Kill() chamado. currentLife = {currentLife}");
             OnKill();
+
+            
+            float deathAnimationDuration = 1.5f;
+
+            Debug.Log($"[EnemyBase:{name}] Destroy em {deathAnimationDuration} segundos");
+            Destroy(gameObject, deathAnimationDuration);
         }
+
+
 
        
         protected virtual void OnKill()
