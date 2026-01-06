@@ -32,7 +32,9 @@ namespace Player
         private void Awake()
         {
             currentLife = maxLife;
-            PlayerUI.Instance.UpdateLifeBar(currentLife, maxLife);
+            
+            if (PlayerUI.Instance != null)
+                PlayerUI.Instance.UpdateLifeBar(currentLife, maxLife);
 
             rb = GetComponent<Rigidbody>();
             anim = GetComponentInChildren<Animator>();
