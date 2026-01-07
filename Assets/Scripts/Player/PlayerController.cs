@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Camera;
+using Effects;
 using Interfaces;
 using States;
 using UnityEngine;
@@ -82,6 +84,9 @@ namespace Player
         public void Damage(float damage, Vector3 dir)
         {
             Damage(damage);
+            EffectsManager.Instance.DamageFlash();
+            CameraShakeController.Instance.Shake();
+
             
         }
 
@@ -93,6 +98,7 @@ namespace Player
 
             
             stateMachine.SwitchState(PlayerStates.DEATH);
+            EffectsManager.Instance.DeathEffect();
 
             
         }
@@ -100,6 +106,9 @@ namespace Player
         
         public void Respawn()
         {
+            
+            EffectsManager.Instance.ResetEffects();
+            
             Vector3 pos = CheckPoint.CheckpointManager.Instance.GetRespawnPosition();
 
             rb.isKinematic = true;

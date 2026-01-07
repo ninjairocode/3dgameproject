@@ -1,6 +1,7 @@
 using UnityEngine;
 using States;
 using System.Collections;
+using Camera;
 
 namespace Boss
 {
@@ -84,6 +85,7 @@ namespace Boss
             isDashing = false;
 
             PushTarget();
+            CameraShakeController.Instance.Shake();
 
             if (!cooldownStarted)
                 boss.StartCoroutine(CooldownRoutine());

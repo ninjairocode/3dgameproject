@@ -13,6 +13,9 @@ namespace CheckPoint
         [Header("Último Checkpoint Ativado")]
         public Transform lastCheckpoint;
 
+        
+        private bool bossCameraPlayed = false;
+
         private void Awake()
         {
             Instance = this;
@@ -27,6 +30,15 @@ namespace CheckPoint
                 var checkpoint = c.GetComponent<Checkpoint>();
                 if (checkpoint != null)
                     checkpoint.SetActive(c == cp);
+            }
+
+            int index = checkpoints.IndexOf(cp);
+
+            
+            if (index == 1 && !bossCameraPlayed)
+            {
+                CameraFocusController.Instance.FocusOnBoss();
+                bossCameraPlayed = true;
             }
         }
 
