@@ -2,6 +2,7 @@ using UnityEngine;
 using States;
 using System.Collections;
 using Camera;
+using Effects;
 
 namespace Boss
 {
@@ -86,6 +87,7 @@ namespace Boss
 
             PushTarget();
             CameraShakeController.Instance.Shake();
+            EffectsManager.Instance.DamageFlash();
 
             if (!cooldownStarted)
                 boss.StartCoroutine(CooldownRoutine());
