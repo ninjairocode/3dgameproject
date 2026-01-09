@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Bag;
 using Interfaces;
 using UnityEngine;
 
@@ -19,10 +20,12 @@ namespace HeroGun
 
         private void Awake()
         {
+            damageAmount += ProjectilePowerManager.bonusDamage;
             Destroy(gameObject, timeToDestroy);
         }
         private void Update()
         {
+           
             transform.Translate(Vector3.forward * Time.deltaTime * speed);
         }
 

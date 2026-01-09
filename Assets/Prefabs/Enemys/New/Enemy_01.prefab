@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5292218833262892715}
   - component: {fileID: 8304608472168692155}
   - component: {fileID: 8678929319700183136}
+  - component: {fileID: 6365607120129516740}
   m_Layer: 0
   m_Name: Enemy_01
   m_TagString: Enemy
@@ -109,6 +110,22 @@ MonoBehaviour:
   - {fileID: 0}
   minDistance: 1
   speed: 10
+--- !u!114 &6365607120129516740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1021229929614583584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2cddbb35f824441a3ff9b9fc06ce2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item.EnemyDropCoins
+  coinPrefab: {fileID: 3731571431414576231, guid: 7a2640e56b396854192ed6f7ab0af1d5, type: 3}
+  minCoins: 1
+  maxCoins: 5
+  dropRadius: 3
 --- !u!1 &4958888201211431377
 GameObject:
   m_ObjectHideFlags: 0

@@ -5490,6 +5490,7 @@ GameObject:
   - component: {fileID: 441009150248794349}
   - component: {fileID: 8386991757172610531}
   - component: {fileID: 6066932762865649807}
+  - component: {fileID: 7162216428519196514}
   m_Layer: 0
   m_Name: BOSS_01
   m_TagString: Enemy
@@ -5614,6 +5615,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 1
+--- !u!114 &7162216428519196514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7042084979321277422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2cddbb35f824441a3ff9b9fc06ce2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item.EnemyDropCoins
+  coinPrefab: {fileID: 3731571431414576231, guid: 7a2640e56b396854192ed6f7ab0af1d5, type: 3}
+  minCoins: 1
+  maxCoins: 5
+  dropRadius: 5
 --- !u!1 &7095556739443047468
 GameObject:
   m_ObjectHideFlags: 0

@@ -5579,6 +5579,7 @@ GameObject:
   - component: {fileID: 3283070052973170153}
   - component: {fileID: 9095275341771391066}
   - component: {fileID: 6561180441205321556}
+  - component: {fileID: 4141187247447787094}
   m_Layer: 0
   m_Name: Enemy_02
   m_TagString: Enemy
@@ -5686,17 +5687,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a62fce3bcdad243bcc02232eb48ec5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy.EnemyShoot
-  collider: {fileID: 3632857384040146687}
+  bodyCollider: {fileID: 3632857384040146687}
   flashColor: {fileID: 4060244339777248001}
-  startLife: 10
   particles: {fileID: 695349653416772761}
+  startLife: 10
+  currentLife: 0
+  animationBase: {fileID: 3283070052973170153}
   lookAtPlayer: 1
-  _currentLife: 0
-  _animationBase: {fileID: 3283070052973170153}
   startAnimationDuration: 0.2
   startAnimationEase: 27
   startWithBornAnimation: 1
+  rb: {fileID: 0}
+  playerController: {fileID: 0}
   gunBase: {fileID: 3654776426527079051}
+--- !u!114 &4141187247447787094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5729601415140958616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a2cddbb35f824441a3ff9b9fc06ce2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item.EnemyDropCoins
+  coinPrefab: {fileID: 3731571431414576231, guid: 7a2640e56b396854192ed6f7ab0af1d5, type: 3}
+  minCoins: 1
+  maxCoins: 5
+  dropRadius: 3
 --- !u!1 &6307797278274363648
 GameObject:
   m_ObjectHideFlags: 0

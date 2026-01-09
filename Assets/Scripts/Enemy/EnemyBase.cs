@@ -2,6 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 using Animation;
 using Interfaces;
+using Item;
 using Player;
 using Utils;
 
@@ -92,6 +93,13 @@ namespace Enemy
         protected virtual void OnKill()
         {
             if (bodyCollider != null) bodyCollider.enabled = false;
+            
+            var drop = GetComponent<EnemyDropCoins>();
+            if (drop != null)
+            {
+                drop.DropCoins();
+            }
+
 
             
             if (animationBase != null)
