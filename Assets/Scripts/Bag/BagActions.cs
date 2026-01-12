@@ -12,28 +12,37 @@ namespace Bag
         public int powerBonus = 2;
         public float powerDuration = 10f;
 
+        private PlayerController player;
+
         private void Awake()
         {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             Instance = this;
+
+            var obj = GameObject.FindWithTag("Player");
+            if (obj != null)
+                player = obj.GetComponent<PlayerController>();
         }
 
         public void UseHeal()
         {
-            var player = GameObject.FindWithTag("Player").GetComponent<Player.PlayerController>();
+            if (player == null || player.isDead)
+                return;
 
-            if (player != null && !player.isDead)
-            {
-                player.currentLife += healAmount;
-
-                if (player.currentLife > player.maxLife)
-                    player.currentLife = player.maxLife;
-
-                PlayerUI.Instance.UpdateLifeBar(player.currentLife, player.maxLife);
-            }
+            player.currentLife = Mathf.Clamp(player.currentLife + healAmount, 0, player.maxLife);
+            PlayerUI.Instance?.UpdateLifeBar(player.currentLife, player.maxLife);
         }
 
         public void UsePower()
         {
+            if (player == null || player.isDead)
+                return;
+
             StartCoroutine(ProjectilePowerManager.ApplyPower(powerBonus, powerDuration));
         }
     }

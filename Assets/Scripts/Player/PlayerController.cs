@@ -27,6 +27,7 @@ namespace Player
         [Header("Components")]
         public Rigidbody rb;
         public Animator anim;
+        private Collider col;
 
         [Header("FLASH")]
         public List<FlashColor> flashColors;
@@ -34,12 +35,10 @@ namespace Player
         private void Awake()
         {
             currentLife = maxLife;
-            
-            if (PlayerUI.Instance != null)
-                PlayerUI.Instance.UpdateLifeBar(currentLife, maxLife);
 
             rb = GetComponent<Rigidbody>();
             anim = GetComponentInChildren<Animator>();
+            col = GetComponent<Collider>();
 
             if (rb != null)
                 rb.isKinematic = false;
@@ -58,6 +57,11 @@ namespace Player
             currentSpeed = walkSpeed;
         }
 
+        private void Start()
+        {
+            PlayerUI.Instance?.UpdateLifeBar(currentLife, maxLife);
+        }
+
         private void Update()
         {
             stateMachine.Update();
@@ -70,24 +74,24 @@ namespace Player
             if (isDead) return;
 
             if (flashColors != null)
-                flashColors.ForEach(i => i.Flash());
+            {
+                foreach (var f in flashColors)
+                    f?.Flash();
+            }
 
-            currentLife -= damage;
-            PlayerUI.Instance.UpdateLifeBar(currentLife, maxLife);
+            currentLife = Mathf.Clamp(currentLife - damage, 0, maxLife);
+            PlayerUI.Instance?.UpdateLifeBar(currentLife, maxLife);
 
             if (currentLife <= 0)
-            {
                 Die();
-            }
         }
 
         public void Damage(float damage, Vector3 dir)
         {
             Damage(damage);
-            EffectsManager.Instance.DamageFlash();
-            CameraShakeController.Instance.Shake();
 
-            
+            EffectsManager.Instance?.DamageFlash();
+            CameraShakeController.Instance?.Shake();
         }
 
         private void Die()
@@ -96,19 +100,17 @@ namespace Player
 
             isDead = true;
 
-            
-            stateMachine.SwitchState(PlayerStates.DEATH);
-            EffectsManager.Instance.DeathEffect();
+            if (col != null)
+                col.enabled = false;
 
-            
+            stateMachine.SwitchState(PlayerStates.DEATH);
+            EffectsManager.Instance?.DeathEffect();
         }
 
-        
         public void Respawn()
         {
-            
-            EffectsManager.Instance.ResetEffects();
-            
+            EffectsManager.Instance?.ResetEffects();
+
             Vector3 pos = CheckPoint.CheckpointManager.Instance.GetRespawnPosition();
 
             rb.isKinematic = true;
@@ -117,14 +119,12 @@ namespace Player
             rb.isKinematic = false;
 
             currentLife = maxLife;
-            PlayerUI.Instance.UpdateLifeBar(currentLife, maxLife);
+            PlayerUI.Instance?.UpdateLifeBar(currentLife, maxLife);
 
             transform.localScale = Vector3.one;
 
             isDead = false;
 
-            
-            Collider col = GetComponent<Collider>();
             if (col != null)
                 col.enabled = true;
 

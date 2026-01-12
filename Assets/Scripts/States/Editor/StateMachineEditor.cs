@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace States.Editor
 {
-    [CustomEditor(typeof(FSMExample))]
+    [CustomEditor(typeof(FsmExample))]
     public class StateMachineEditor : UnityEditor.Editor
     {
         public bool showFoldout;
@@ -15,7 +15,7 @@ namespace States.Editor
         {
             base.OnInspectorGUI();
             
-            FSMExample fsm = (FSMExample)target;
+            FsmExample fsm = (FsmExample)target;
             
             EditorGUILayout.Space(30);
             EditorGUILayout.LabelField("State Machine");

@@ -3,7 +3,7 @@ using States;
 
 namespace States
 {
-    public class FSMExample : MonoBehaviour
+    public class FsmExample : MonoBehaviour
     {
         public enum ExampleEnum
         {
