@@ -1,3 +1,4 @@
+using Cloth;
 using Player;
 using UnityEngine;
 
@@ -42,6 +43,9 @@ namespace Bag
         {
             if (player == null || player.isDead)
                 return;
+            
+            player.clothChanger.ChangeCloth(ClothType.POWER);
+
 
             StartCoroutine(ProjectilePowerManager.ApplyPower(powerBonus, powerDuration));
         }

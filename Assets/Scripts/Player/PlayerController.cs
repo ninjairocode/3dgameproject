@@ -1,5 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using Camera;
+using Cloth;
 using Effects;
 using Interfaces;
 using States;
@@ -27,8 +29,16 @@ namespace Player
         [Header("Components")]
         public Rigidbody rb;
         public Animator anim;
+        public Cloth.ClothChanger clothChanger;
         private Collider col;
+        
+        [Header("INVENCIBLE")]
+        public bool isInvincible;
+        public float invincibleDuration = 5f;
+        public float invincibleCooldown = 20f;
+        private bool canUseInvincibility = true;
 
+        
         [Header("FLASH")]
         public List<FlashColor> flashColors;
 
@@ -65,12 +75,19 @@ namespace Player
         private void Update()
         {
             stateMachine.Update();
+            
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                TryActivateInvincibility();
+            }
+
         }
 
         #region LIFE
 
         public void Damage(float damage)
         {
+            if (isInvincible) return;
             if (isDead) return;
 
             if (flashColors != null)
@@ -88,6 +105,8 @@ namespace Player
 
         public void Damage(float damage, Vector3 dir)
         {
+            if (isInvincible) return;
+
             Damage(damage);
 
             EffectsManager.Instance?.DamageFlash();
@@ -132,6 +151,34 @@ namespace Player
         }
 
         #endregion
+        
+        public void TryActivateInvincibility()
+        {
+            if (!canUseInvincibility) return;
+
+            StartCoroutine(InvincibilityRoutine());
+        }
+        
+        private IEnumerator InvincibilityRoutine()
+        {
+            canUseInvincibility = false;
+            isInvincible = true;
+
+            clothChanger.ChangeCloth(ClothType.RESIST);
+            Debug.Log("Invencível!");
+
+            yield return new WaitForSeconds(invincibleDuration);
+
+            isInvincible = false;
+            Debug.Log("Invencibilidade acabou!");
+            clothChanger.ChangeCloth(ClothType.NORMAL);
+
+            yield return new WaitForSeconds(invincibleCooldown);
+
+            canUseInvincibility = true;
+            Debug.Log("Habilidade pronta novamente!");
+        }
+       
     }
 
     public enum PlayerStates

@@ -1,4 +1,6 @@
 using System.Collections;
+using Cloth;
+using Player;
 using TMPro;
 using UnityEngine;
 
@@ -32,6 +34,11 @@ namespace Bag
             }
 
             durationText.text = "";
+            
+            PlayerController player = FindObjectOfType<PlayerController>();
+            player.clothChanger.ChangeCloth(ClothType.NORMAL);
+
+            
         }
     }
 }

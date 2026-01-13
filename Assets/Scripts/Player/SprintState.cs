@@ -1,3 +1,4 @@
+using Cloth;
 using States;
 using UnityEngine;
 
@@ -15,6 +16,9 @@ namespace Player
         public override void OnStateEnter()
         {
             player.currentSpeed = player.sprintSpeed;
+            
+            player.clothChanger.ChangeCloth(ClothType.SPEED);
+
 
             if (player.anim != null)
             {
@@ -79,6 +83,9 @@ namespace Player
         public override void OnStateExit()
         {
             player.currentSpeed = player.walkSpeed;
+            
+            player.clothChanger.ChangeCloth(ClothType.NORMAL);
+
 
             if (player.anim != null)
                 player.anim.speed = 1f;
