@@ -1,6 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 using Animation;
+using Audio;
 using Interfaces;
 using Item;
 using Player;
@@ -127,6 +128,7 @@ namespace Enemy
             
             if (flashColor != null) flashColor.Flash();
             if (particles != null) particles.Play();
+            SoundManager.Instance.PlaySFX("damage");
 
             
 
@@ -161,11 +163,13 @@ namespace Enemy
         {
             Debug.Log($"Damage {damage} on {name}");
             OnDamage(damage);
+            
         }
 
         public virtual void Damage(float damage, Vector3 dir)
         {
             OnDamage(damage);
+            
 
             
         }

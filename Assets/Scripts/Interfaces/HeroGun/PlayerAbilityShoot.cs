@@ -1,11 +1,10 @@
-using System;
 using System.Collections.Generic;
+using Audio;
 using Player;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine;
 
-namespace HeroGun
+namespace Interfaces.HeroGun
 {
     public class PlayerAbilityShoot : PlayerAbilityBase
     {
@@ -72,6 +71,8 @@ namespace HeroGun
             if (_currentGun == null) return;
 
             _currentGun.Shooting();
+            SoundManager.Instance.PlaySFX("gun");
+
             Debug.Log("Shooting");
         }
 

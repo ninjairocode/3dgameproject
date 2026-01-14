@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using Bag;
-using Interfaces;
 using UnityEngine;
 
-namespace HeroGun
+namespace Interfaces.HeroGun
 {
     public class ProjectileBase : MonoBehaviour
     {

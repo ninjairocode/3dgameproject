@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 
 namespace Item
@@ -9,6 +10,8 @@ namespace Item
         {
             base.OnCollect();
             Debug.Log("Collected Coin");
+            SoundManager.Instance.PlaySFX("coin");
+
 
             if (coinData != null)
             {

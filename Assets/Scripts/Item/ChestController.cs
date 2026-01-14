@@ -1,3 +1,4 @@
+using Audio;
 using Save;
 using UnityEngine;
 
@@ -73,6 +74,9 @@ namespace Item
             opened = true;
             
             GameWorldState.Instance.RegisterChestOpened(chestID);
+            
+            SoundManager.Instance.PlaySFX("chest");
+
 
 
             if (openHintUI != null)

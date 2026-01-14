@@ -1,10 +1,8 @@
-using System;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-
-namespace HeroGun
+namespace Interfaces.HeroGun
 {
     public class UIGunUpdater : MonoBehaviour
     {

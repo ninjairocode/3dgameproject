@@ -1,4 +1,4 @@
-using HeroGun;
+using Interfaces.HeroGun;
 using UnityEngine;
 
 namespace Enemy

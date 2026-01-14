@@ -1,3 +1,4 @@
+using Audio;
 using States;
 using UnityEngine;
 
@@ -19,6 +20,8 @@ namespace Player
             
             if (player.transform != null)
                 player.transform.localScale = new Vector3(1.1f, 0.8f, 1.1f);
+            
+            SoundManager.Instance.PlaySFX("jump");
 
            
             if (player.anim != null)

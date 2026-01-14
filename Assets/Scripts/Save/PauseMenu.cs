@@ -1,16 +1,29 @@
 using System;
+using Audio;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Save
 {
     public class PauseMenu : MonoBehaviour
     {
         public GameObject pauseUI;
+        
+        [Header("Audio Sliders")]
+        public Slider ambienceSlider;
+        public Slider sfxSlider;
+
 
         private bool isPaused;
 
         public void Start()
         {
+            ambienceSlider.value = SoundManager.Instance.ambienceVolume;
+            sfxSlider.value = SoundManager.Instance.sfxVolume;
+
+            ambienceSlider.onValueChanged.AddListener(SoundManager.Instance.SetAmbienceVolume);
+            sfxSlider.onValueChanged.AddListener(SoundManager.Instance.SetSFXVolume);
+
             pauseUI.SetActive(false);
         }
 

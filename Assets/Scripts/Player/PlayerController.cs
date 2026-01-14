@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Audio;
 using Camera;
 using Cloth;
 using Effects;
@@ -21,6 +22,9 @@ namespace Player
         public float currentSpeed = 5f;
         public float jumpForce = 7f;
         public float rotationSpeed = 180f;
+        //public bool canPlayStep = true;
+
+
 
         [Header("Life Settings")]
         public float maxLife = 100f;
@@ -96,6 +100,7 @@ namespace Player
                 foreach (var f in flashColors)
                     f?.Flash();
             }
+            SoundManager.Instance.PlaySFX("hit");
 
             currentLife = Mathf.Clamp(currentLife - damage, 0, maxLife);
             PlayerUI.Instance?.UpdateLifeBar(currentLife, maxLife);
@@ -109,6 +114,8 @@ namespace Player
             if (isInvincible) return;
 
             Damage(damage);
+            SoundManager.Instance.PlaySFX("hit");
+
 
             EffectsManager.Instance?.DamageFlash();
             CameraShakeController.Instance?.Shake();
@@ -180,6 +187,15 @@ namespace Player
             canUseInvincibility = true;
             Debug.Log("Habilidade pronta novamente!");
         }
+        
+        // public IEnumerator StepCooldown()
+        // {
+        //     canPlayStep = false;
+        //     yield return new WaitForSeconds(0.35f);
+        //     canPlayStep = true;
+        // }
+
+
        
     }
     

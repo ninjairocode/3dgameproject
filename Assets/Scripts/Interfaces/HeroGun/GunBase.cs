@@ -1,9 +1,7 @@
-using System;
 using System.Collections;
-using System.Runtime.InteropServices.ComTypes;
 using UnityEngine;
 
-namespace HeroGun
+namespace Interfaces.HeroGun
 {
     public class GunBase : MonoBehaviour
     {

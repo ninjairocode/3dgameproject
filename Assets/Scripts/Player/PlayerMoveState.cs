@@ -1,3 +1,4 @@
+using Audio;
 using States;
 using UnityEngine;
 
@@ -16,18 +17,32 @@ namespace Player
         {
             if (player.anim != null)
                 player.anim.SetBool("Run", true);
+            
+            var clip = SoundManager.Instance.sfxList.Find(s => s.id == "run").clip;
+            SoundManager.Instance.PlayLoopSFX(clip);
+
+            
+
+            
         }
 
         public override void OnStateExit()
         {
             if (player.anim != null)
                 player.anim.SetBool("Run", false);
+            
+            SoundManager.Instance.StopLoopSFX();
+
+            
+
         }
 
         public override void OnStateStay()
         {
             float h = Input.GetAxisRaw("Horizontal");
             float v = Input.GetAxisRaw("Vertical");
+            
+            
 
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -58,6 +73,8 @@ namespace Player
                 vel.x = 0f;
                 vel.z = 0f;
             }
+            
+            
 
             player.rb.linearVelocity = vel;
 

@@ -1,3 +1,4 @@
+using Audio;
 using Cloth;
 using States;
 using UnityEngine;
@@ -25,6 +26,10 @@ namespace Player
                 player.anim.SetBool("Run", true);
                 player.anim.speed = 1.5f;
             }
+            
+            var clip = SoundManager.Instance.sfxList.Find(s => s.id == "flash").clip;
+            SoundManager.Instance.PlayLoopSFX(clip);
+
         }
 
         public override void OnStateStay()
@@ -89,6 +94,9 @@ namespace Player
 
             if (player.anim != null)
                 player.anim.speed = 1f;
+            
+            SoundManager.Instance.StopLoopSFX();
+
         }
     }
 }
