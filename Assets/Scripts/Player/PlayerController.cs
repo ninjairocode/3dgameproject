@@ -7,10 +7,11 @@ using Interfaces;
 using States;
 using UnityEngine;
 using Utils;
+using Save;
 
 namespace Player
 {
-    public class PlayerController : MonoBehaviour, IDamageable
+    public partial class PlayerController : MonoBehaviour, IDamageable
     {
         public StateMachine<PlayerStates> stateMachine;
 
@@ -159,6 +160,7 @@ namespace Player
             StartCoroutine(InvincibilityRoutine());
         }
         
+        
         private IEnumerator InvincibilityRoutine()
         {
             canUseInvincibility = false;
@@ -180,6 +182,8 @@ namespace Player
         }
        
     }
+    
+    
 
     public enum PlayerStates
     {
@@ -189,4 +193,38 @@ namespace Player
         SPRINT,
         DEATH
     }
+    
+    
+    public partial class PlayerController
+    {
+        public void ApplySave(SaveSetup save)
+        {
+            if (save == null) return;
+
+            
+            transform.position = new Vector3(
+                save.playerPosX,
+                save.playerPosY,
+                save.playerPosZ
+            );
+
+           
+            currentLife = Mathf.Clamp(save.playerLife, 0, maxLife);
+            PlayerUI.Instance?.UpdateLifeBar(currentLife, maxLife);
+
+            
+            if (currentLife > 0)
+            {
+                isDead = false;
+                if (col != null)
+                    col.enabled = true;
+                stateMachine.SwitchState(PlayerStates.IDLE);
+            }
+
+            rb.linearVelocity = Vector3.zero;
+        }
+    }
+
+    
+    
 }

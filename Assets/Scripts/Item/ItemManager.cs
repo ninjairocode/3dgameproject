@@ -25,6 +25,12 @@ namespace Item
             if (countCoins != null)
                 countCoins.text = coinsQuantity.ToString();
         }
+        
+        public void ForceUpdateUI()
+        {
+            UpdateUI();
+        }
+
     }
 }
 

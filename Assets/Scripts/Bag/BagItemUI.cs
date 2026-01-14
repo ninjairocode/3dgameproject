@@ -7,6 +7,10 @@ namespace Bag
     public class BagItemUI : MonoBehaviour
     {
         public enum ItemType { Heal, Power }
+        
+        [Header("ID Único do Item")]
+        public string itemID;
+
 
         public ItemType itemType;
         public int quantity = 3;
@@ -66,5 +70,18 @@ namespace Bag
 
             cooldownTimer = cooldown;
         }
+        
+        public float GetCooldownTimer()
+        {
+            return cooldownTimer;
+        }
+
+        public void ApplySave(int savedQuantity, float savedCooldown)
+        {
+            quantity = savedQuantity;
+            cooldownTimer = savedCooldown;
+            UpdateUI();
+        }
+
     }
 }

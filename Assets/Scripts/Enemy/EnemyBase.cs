@@ -4,12 +4,16 @@ using Animation;
 using Interfaces;
 using Item;
 using Player;
+using Save;
 using Utils;
 
 namespace Enemy
 {
     public class EnemyBase : MonoBehaviour, IDamageable
     {
+        [Header("ID Único do Inimigo")]
+        public string enemyID;
+        
         [Header("Components")]
         public Collider bodyCollider;
         public FlashColor flashColor;
@@ -30,9 +34,9 @@ namespace Enemy
 
         
         public Rigidbody rb;
-
-
         public PlayerController playerController;
+        
+        private bool alreadyDead = false;
 
         private void OnValidate()
         {
@@ -78,6 +82,8 @@ namespace Enemy
         protected virtual void Kill()
         {
             Debug.Log($"[EnemyBase:{name}] Kill() chamado. currentLife = {currentLife}");
+            GameWorldState.Instance.RegisterEnemyDefeated(enemyID);
+
             OnKill();
 
             
@@ -182,6 +188,15 @@ namespace Enemy
                 Vector3 target = playerController.transform.position;
                 target.y = transform.position.y;
                 transform.LookAt(target);
+            }
+        }
+        
+        public void ApplySavedState(bool defeated)
+        {
+            if (defeated)
+            {
+                alreadyDead = true;
+                gameObject.SetActive(false);
             }
         }
     }
